@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src='src/js/drawable-component.js'></script>
     <script src='src/js/card.js'></script>
     <script src='src/js/card-heap.js'></script>
     <script src='src/js/deck.js'></script>
@@ -8,6 +9,35 @@
     <script src='src/js/table.js'></script>
     <script src='src/js/player.js'></script>
     <script src='src/js/main-game.js'></script>
+    <script src='src/js/app.js'></script>
+
+    <style>
+      body{
+        text-align: center;
+      }
+      #screen { display:block; margin:0 auto; background-color:#F0F; }
+      .container{
+        position: relative;
+        float: left;
+      }
+      .controls{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      .controls button{
+        float: right;
+        margin-left: 10px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div class='container'>
+      <canvas id='screen' width='800' height='480'></canvas>
+      <div class='controls'>
+        <button onclick='app.input(0, ["draw", ""])'>Robar carta</button>
+        <button onclick='app.input(0, ["hand", ""])'>A pila</button>
+      </div>
+    </div>
+  </body>
 </html>

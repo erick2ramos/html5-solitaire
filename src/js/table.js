@@ -10,6 +10,8 @@ function Table(){
       aHeap.draw(this.deck);
     };
     aHeap.uncover();
+    aHeap.comp.x = 100 + (60*i);
+    aHeap.comp.y = 250;
     this.stacks.push(aHeap);
   }
   for(i = 0; i < 4; i++){
@@ -79,4 +81,19 @@ Table.prototype.show = function(){
     output += i + ": " + this.stacks[i] + "\n";
   }
   return output;
+};
+
+Table.prototype.render = function(canvas, ctx) {
+  for(var i = 0; i < this.piles.length; i++){
+    ctx.strokeRect(100 + (i * 60), 50, 40, 50);
+    var tc = this.piles[i].top();
+    if(tc !== undefined){
+      tc.comp.x = 100 + (i * 60);
+      tc.comp.y = 50;
+      tc.render(canvas, ctx);
+    }
+  }
+  for(var i = 0; i < this.stacks.length; i++){
+    this.stacks[i].render(canvas, ctx);
+  }
 };

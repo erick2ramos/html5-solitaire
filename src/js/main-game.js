@@ -39,3 +39,10 @@ MainGame.prototype.input = function(player, actions){
   this[actions[0]](player, actions[1]);
   this.show();
 };
+
+MainGame.prototype.render = function(canvas, ctx) {
+  ctx.fillStyle = "#00AA64";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  this.table.render(canvas, ctx);
+  this.player.render(canvas, ctx);
+};
