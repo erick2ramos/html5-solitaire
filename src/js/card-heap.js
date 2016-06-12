@@ -1,5 +1,6 @@
 // Card heap
-function CardHeap(){
+function CardHeap(game){
+  this.game = game;
   this.cards = [];
 }
 //CardHeap.prototype.cards = [];

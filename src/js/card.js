@@ -1,7 +1,49 @@
 // Card Class
-function Card(value){
+function Card(game, value){
+  this.game = game;
   this.value = value;
   this.comp = new DrawableComponent(0, 0, 40, 50);
+  this.startingComp = {x: 0, y: 0, active: false};
+
+  this.game.cnv.addEventListener("mousedown", function(e){
+    var mouse= {
+      x: e.pageX - this.game.cnvInfo.x,
+      y: e.pageY - this.game.cnvInfo.y
+    };
+    if (this.comp.x < mouse.x &&
+        this.comp.x + this.comp.width > mouse.x &&
+        this.comp.y < mouse.y &&
+        this.comp.y + this.comp.height > mouse.y && !this.startingComp.active) {
+      this.startingComp.x = this.comp.x;
+      this.startingComp.y = this.comp.y;
+      this.startingComp.offX = mouse.x - this.comp.x;
+      this.startingComp.offY = mouse.y - this.comp.y;
+      this.startingComp.active = true;
+    }
+  }.bind(this));
+
+  this.game.cnv.addEventListener("mousemove", function(e){
+    var mouse= {
+      x: e.pageX - this.game.cnvInfo.x,
+      y: e.pageY - this.game.cnvInfo.y
+    };
+    if (this.startingComp.active){
+      this.comp.x = mouse.x + this.startingComp.offX;
+      this.comp.y = mouse.y + this.startingComp.offY;
+    }
+  }.bind(this));
+
+  this.game.cnv.addEventListener("mouseup", function(e){
+    var mouse= {
+      x: e.pageX - this.game.cnvInfo.x,
+      y: e.pageY - this.game.cnvInfo.y
+    };
+    if (this.startingComp.active) {
+      this.comp.x = this.startingComp.x;
+      this.comp.y = this.startingComp.y;
+      this.startingComp.active = false;
+    }
+  }.bind(this));
 }
 
 Card.prototype.figures = "SDCH";
@@ -24,7 +66,7 @@ Card.prototype.toString = function(){
 };
 
 Card.prototype.isNext = function(card){
-  return Card.prototype.values.indexOf(card.value[0]) + 1 === Card.prototype.values.indexOf(this.value[0]);
+  return card !== undefined && Card.prototype.values.indexOf(card.value[0]) + 1 === Card.prototype.values.indexOf(this.value[0]);
 };
 
 Card.prototype.render = function(canvas, ctx) {

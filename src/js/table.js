@@ -1,21 +1,25 @@
 //Table
-function Table(){
+function Table(game){
+  this.game = game;
   this.stacks = [];
   this.piles = [];
-  this.deck = new Deck();
+  this.deck = new Deck(game);
+
+  this.deck.comp.x = 400;
+  this.deck.comp.y = 50;
 
   for(i = 0; i < 7; i++){
-    var aHeap = new SolitaireStack();
+    var aHeap = new SolitaireStack(game, i);
     for(j = 0; j <= i; j++){
       aHeap.draw(this.deck);
     };
     aHeap.uncover();
     aHeap.comp.x = 100 + (60*i);
-    aHeap.comp.y = 250;
+    aHeap.comp.y = 150;
     this.stacks.push(aHeap);
   }
   for(i = 0; i < 4; i++){
-    this.piles.push(new CardHeap());
+    this.piles.push(new CardHeap(game));
   }
 }
 
@@ -96,4 +100,5 @@ Table.prototype.render = function(canvas, ctx) {
   for(var i = 0; i < this.stacks.length; i++){
     this.stacks[i].render(canvas, ctx);
   }
+  this.deck.render(canvas, ctx);
 };

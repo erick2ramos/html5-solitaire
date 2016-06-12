@@ -1,7 +1,8 @@
 // Game
-function MainGame(){
-  this.table = new Table();
-  this.player = new Player();
+function MainGame(game){
+  this.game = game;
+  this.table = new Table(game);
+  this.player = new Player(game);
 }
 
 MainGame.prototype.draw = function(player, coords){
