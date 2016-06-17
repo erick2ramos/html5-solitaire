@@ -26,6 +26,10 @@ function Table(game){
 Table.prototype.move = function(from, to){
   var coords = from.split(",");
   var stackSegment = this.stacks[coords[0]*1].segment(coords[1]*1);
+  if(this.stacks[to*1].visible.cards.length === 0 && stackSegment.bottom().number() === "K"){
+    this.stacks[to*1].merge(stackSegment);
+    return;
+  }
   if(stackSegment.bottom().color() !== this.stacks[to*1].visible.top().color() && 
     this.stacks[to*1].visible.top().isNext(stackSegment.bottom() ) ){
     this.stacks[to*1].merge(stackSegment);
@@ -87,15 +91,25 @@ Table.prototype.show = function(){
   return output;
 };
 
-Table.prototype.render = function(canvas, ctx) {
+Table.prototype.update = function(timelapse){
   for(var i = 0; i < this.piles.length; i++){
-    ctx.strokeRect(100 + (i * 60), 50, 40, 50);
     var tc = this.piles[i].top();
     if(tc !== undefined){
       tc.comp.x = 100 + (i * 60);
       tc.comp.y = 50;
-      tc.render(canvas, ctx);
     }
+  }
+  for(var i = 0; i < this.stacks.length; i++){
+    this.stacks[i].update(timelapse);
+  }
+};
+
+Table.prototype.render = function(canvas, ctx) {
+  for(var i = 0; i < this.piles.length; i++){
+    ctx.strokeRect(100 + (i * 60), 50, 40, 50);
+    if(this.piles[i].top() !== undefined){
+      this.piles[i].top().render(canvas, ctx);
+    }  
   }
   for(var i = 0; i < this.stacks.length; i++){
     this.stacks[i].render(canvas, ctx);

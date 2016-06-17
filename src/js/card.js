@@ -16,8 +16,8 @@ function Card(game, value){
         this.comp.y + this.comp.height > mouse.y && !this.startingComp.active) {
       this.startingComp.x = this.comp.x;
       this.startingComp.y = this.comp.y;
-      this.startingComp.offX = mouse.x - this.comp.x;
-      this.startingComp.offY = mouse.y - this.comp.y;
+      this.startingComp.offX = this.comp.x - mouse.x;
+      this.startingComp.offY = this.comp.y - mouse.y;
       this.startingComp.active = true;
     }
   }.bind(this));

@@ -33,9 +33,9 @@ Deck.prototype.isEmpty = function(){
 }
 
 Deck.prototype.render = function(canvas, ctx) {
-  ctx.strokeRect(this.comp.x, this.comp.y, 40, 50);
+  ctx.strokeRect(this.comp.x, this.comp.y, this.comp.width, this.comp.height);
   ctx.fillStyle = this.comp.color;
   if(this.cards.length > 0){
-    ctx.fillRect(this.comp.x, this.comp.y, 40, 50);
+    ctx.fillRect(this.comp.x, this.comp.y, this.comp.width, this.comp.height);
   }
 };

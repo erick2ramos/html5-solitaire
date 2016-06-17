@@ -39,6 +39,12 @@ MainGame.prototype.show = function(){
 MainGame.prototype.input = function(player, actions){
   this[actions[0]](player, actions[1]);
   this.show();
+  this.update(0);
+};
+
+MainGame.prototype.update = function(timelapse){
+  this.table.update(timelapse);
+  this.player.update(timelapse);
 };
 
 MainGame.prototype.render = function(canvas, ctx) {
