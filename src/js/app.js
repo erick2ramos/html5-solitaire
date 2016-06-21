@@ -37,7 +37,7 @@ App.prototype.render = function() {
   this.mg.render(this.cnv, this.ctx);
   this.ctx.fillStyle = "white";
   this.ctx.strokeStyle = "black";
-  this.ctx.fillText("("+this.mouse.x+", "+this.mouse.y+") " + this.mouse.extra, this.mouse.x + 2, this.mouse.y);
+  this.ctx.fillText("("+this.mouse.x+", "+this.mouse.y+") " + this.mouse.extra, this.mouse.x + 8, this.mouse.y + 25);
 };
 
 window.onload = function(){
@@ -45,8 +45,8 @@ window.onload = function(){
   var canvas = document.getElementById("screen");
   window.app.canvas(canvas);
   window.app.cnvInfo = {
-    x: canvas.offsetLeft,
-    y: canvas.offsetTop
+    x: canvas.parentElement.offsetLeft,
+    y: canvas.parentElement.offsetTop
   };
   window.app.ctx = window.app.canvas().getContext("2d");
   canvas.addEventListener("mousemove", function(e){

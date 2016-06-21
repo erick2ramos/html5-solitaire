@@ -4,7 +4,7 @@ function SolitaireStack(game, stackNumber){
   this.number = stackNumber;
   this.hidden = new CardHeap();
   this.visible = new CardHeap();
-  this.comp = new DrawableComponent(0, 0, 40, 50);
+  this.comp = new DrawableComponent(0, 0, 0, 0);
 
   this.game.cnv.addEventListener("dblclick", function(e){
     var mouse = {
@@ -89,13 +89,13 @@ SolitaireStack.prototype.update = function(timelapse){
     tc.comp.x = this.comp.x;
     tc.comp.y = this.comp.y + (3) + (j * 10);
   }
-  this.comp.height = 3 + (this.visible.cards.length * 10) + 50;
+  this.comp.width = 40;
+  this.comp.height = 3 + ((this.visible.cards.length -1) * 10) + 50;
 };
 
 SolitaireStack.prototype.render = function(canvas, ctx) {
   ctx.strokeRect(this.comp.x, this.comp.y, 40, 50);
   if(this.hidden.cards.length > 0){
-    this.comp.height = 50; 
     ctx.strokeRect(this.comp.x, this.comp.y, 40, 50);
     ctx.fillStyle = "blue";
     ctx.fillRect(this.comp.x, this.comp.y, 40, 50);
@@ -103,4 +103,8 @@ SolitaireStack.prototype.render = function(canvas, ctx) {
   for(var j = 0; j < this.visible.cards.length; j++){
     this.visible.cards[j].render(canvas, ctx);
   }
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "black";
+  ctx.strokeRect(this.comp.x, this.comp.y, this.comp.width, this.comp.height);
+  ctx.fillText(this.comp.width + ", " + this.comp.height, this.comp.x, this.comp.y - 10);
 };
